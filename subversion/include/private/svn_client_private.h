@@ -348,6 +348,10 @@ svn_client__mergeinfo_log(svn_boolean_t finding_merged,
 /** Return a diff processor that will print a diff in Subversion-style
  *  or git-style, based on @a use_git_diff_format value.
  *
+ * @a ddi_p will be initialized with a svn_client__diff_driver_info_t,
+ * which should describe some settings of the diff writer. It can be modified
+ * in future as required, and the writer should accept with them.
+ *
  * @a anchor is optional (may be null), and is the 'anchor' path to prefix
  * to the diff-processor paths before displaying.
  *
