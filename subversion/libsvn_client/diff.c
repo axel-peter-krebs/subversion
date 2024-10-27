@@ -2680,9 +2680,6 @@ svn_error_t *
 svn_client__get_diff_writer_svn(
                 svn_diff_tree_processor_t **diff_processor,
                 svn_client__diff_driver_info_t **ddi_p,
-                const char *anchor,
-                const char *orig_path_1,
-                const char *orig_path_2,
                 const apr_array_header_t *options,
                 const char *relative_to_dir,
                 svn_boolean_t no_diff_added,
@@ -2699,9 +2696,7 @@ svn_client__get_diff_writer_svn(
                 svn_client_ctx_t *ctx,
                 apr_pool_t *pool)
 {
-  svn_client__diff_driver_info_t *ddi;
-
-  SVN_ERR(get_diff_processor(diff_processor, &ddi,
+  SVN_ERR(get_diff_processor(diff_processor, ddi_p,
                              options,
                              relative_to_dir,
                              no_diff_added,
@@ -2715,10 +2710,6 @@ svn_client__get_diff_writer_svn(
                              header_encoding,
                              outstream, errstream,
                              ctx, pool));
-  ddi->anchor = anchor;
-  ddi->orig_path_1 = orig_path_1;
-  ddi->orig_path_2 = orig_path_2;
-  *ddi_p = ddi;
   return SVN_NO_ERROR;
 }
 

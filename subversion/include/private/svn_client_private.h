@@ -352,21 +352,12 @@ svn_client__mergeinfo_log(svn_boolean_t finding_merged,
  * which should describe some settings of the diff writer. It can be modified
  * in future as required, and the writer should accept with them.
  *
- * @a anchor is optional (may be null), and is the 'anchor' path to prefix
- * to the diff-processor paths before displaying.
- *
- * @a orig_path_1 and @a orig_path_2 are the two main root paths to be
- * diffed; each may be a URL, a local WC path or a local unversioned path.
- *
  * Other arguments are as for svn_client_diff7() etc.
  */
 svn_error_t *
 svn_client__get_diff_writer_svn(
                 svn_diff_tree_processor_t **diff_processor,
                 svn_client__diff_driver_info_t **ddi_p,
-                const char *anchor,
-                const char *orig_path_1,
-                const char *orig_path_2,
                 const apr_array_header_t *options,
                 const char *relative_to_dir,
                 svn_boolean_t no_diff_added,
