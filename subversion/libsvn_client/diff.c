@@ -2679,6 +2679,7 @@ get_diff_processor(svn_diff_tree_processor_t **diff_processor,
 svn_error_t *
 svn_client__get_diff_writer_svn(
                 svn_diff_tree_processor_t **diff_processor,
+                svn_client__diff_driver_info_t **ddi_p,
                 const char *anchor,
                 const char *orig_path_1,
                 const char *orig_path_2,
@@ -2717,6 +2718,7 @@ svn_client__get_diff_writer_svn(
   ddi->anchor = anchor;
   ddi->orig_path_1 = orig_path_1;
   ddi->orig_path_2 = orig_path_2;
+  *ddi_p = ddi;
   return SVN_NO_ERROR;
 }
 

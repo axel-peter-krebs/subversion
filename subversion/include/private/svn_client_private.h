@@ -359,6 +359,7 @@ svn_client__mergeinfo_log(svn_boolean_t finding_merged,
 svn_error_t *
 svn_client__get_diff_writer_svn(
                 svn_diff_tree_processor_t **diff_processor,
+                svn_client__diff_driver_info_t **ddi_p,
                 const char *anchor,
                 const char *orig_path_1,
                 const char *orig_path_2,
