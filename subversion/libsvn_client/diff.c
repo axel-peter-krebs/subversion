@@ -2610,27 +2610,25 @@ create_diff_writer_info(diff_writer_info_t *dwi,
   return SVN_NO_ERROR;
 }
 
-/* Set up *DIFF_PROCESSOR and *DDI for normal and git-style diffs (but not
- * summary diffs).
- */
-static svn_error_t *
-get_diff_processor(svn_diff_tree_processor_t **diff_processor,
-                   svn_client__diff_driver_info_t **ddi,
-                   const apr_array_header_t *options,
-                   const char *relative_to_dir,
-                   svn_boolean_t no_diff_added,
-                   svn_boolean_t no_diff_deleted,
-                   svn_boolean_t show_copies_as_adds,
-                   svn_boolean_t ignore_content_type,
-                   svn_boolean_t ignore_properties,
-                   svn_boolean_t properties_only,
-                   svn_boolean_t use_git_diff_format,
-                   svn_boolean_t pretty_print_mergeinfo,
-                   const char *header_encoding,
-                   svn_stream_t *outstream,
-                   svn_stream_t *errstream,
-                   svn_client_ctx_t *ctx,
-                   apr_pool_t *pool)
+svn_error_t *
+svn_client__get_diff_writer_svn(
+                svn_diff_tree_processor_t **diff_processor,
+                svn_client__diff_driver_info_t **ddi_p,
+                const apr_array_header_t *options,
+                const char *relative_to_dir,
+                svn_boolean_t no_diff_added,
+                svn_boolean_t no_diff_deleted,
+                svn_boolean_t show_copies_as_adds,
+                svn_boolean_t ignore_content_type,
+                svn_boolean_t ignore_properties,
+                svn_boolean_t properties_only,
+                svn_boolean_t use_git_diff_format,
+                svn_boolean_t pretty_print_mergeinfo,
+                const char *header_encoding,
+                svn_stream_t *outstream,
+                svn_stream_t *errstream,
+                svn_client_ctx_t *ctx,
+                apr_pool_t *pool)
 {
   diff_writer_info_t *dwi = apr_pcalloc(pool, sizeof(*dwi));
   svn_diff_tree_processor_t *processor;
@@ -2672,44 +2670,7 @@ get_diff_processor(svn_diff_tree_processor_t **diff_processor,
   processor->file_deleted = diff_file_deleted;
 
   *diff_processor = processor;
-  *ddi = &dwi->ddi;
-  return SVN_NO_ERROR;
-}
-
-svn_error_t *
-svn_client__get_diff_writer_svn(
-                svn_diff_tree_processor_t **diff_processor,
-                svn_client__diff_driver_info_t **ddi_p,
-                const apr_array_header_t *options,
-                const char *relative_to_dir,
-                svn_boolean_t no_diff_added,
-                svn_boolean_t no_diff_deleted,
-                svn_boolean_t show_copies_as_adds,
-                svn_boolean_t ignore_content_type,
-                svn_boolean_t ignore_properties,
-                svn_boolean_t properties_only,
-                svn_boolean_t use_git_diff_format,
-                svn_boolean_t pretty_print_mergeinfo,
-                const char *header_encoding,
-                svn_stream_t *outstream,
-                svn_stream_t *errstream,
-                svn_client_ctx_t *ctx,
-                apr_pool_t *pool)
-{
-  SVN_ERR(get_diff_processor(diff_processor, ddi_p,
-                             options,
-                             relative_to_dir,
-                             no_diff_added,
-                             no_diff_deleted,
-                             show_copies_as_adds,
-                             ignore_content_type,
-                             ignore_properties,
-                             properties_only,
-                             use_git_diff_format,
-                             pretty_print_mergeinfo,
-                             header_encoding,
-                             outstream, errstream,
-                             ctx, pool));
+  *ddi_p = &dwi->ddi;
   return SVN_NO_ERROR;
 }
 
