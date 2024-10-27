@@ -70,30 +70,6 @@
                           _("Path '%s' must be an immediate child of " \
                             "the directory '%s'"), path, relative_to_dir)
 
-/* State provided by the diff drivers; used by the diff writer */
-typedef struct diff_driver_info_t
-{
-  /* The anchor to prefix before wc paths */
-  const char *anchor;
-
-  /* Relative path of ra session from repos_root_url.
-
-     Used only in printing git diff headers. The repository-root-relative
-     path of ... ### what user-visible property of the diff? */
-  const char *session_relpath;
-
-  /* Used only in printing git diff headers. Used to find the
-     repository-root-relative path of a WC path. */
-  svn_wc_context_t *wc_ctx;
-
-  /* The original targets passed to the diff command.  We may need
-     these to construct distinctive diff labels when comparing the
-     same relative path in the same revision, under different anchors
-     (for example, when comparing a trunk against a branch). */
-  const char *orig_path_1;
-  const char *orig_path_2;
-} diff_driver_info_t;
-
 
 /* Calculate the repository relative path of DIFF_RELPATH, using
  * SESSION_RELPATH and WC_CTX, and return the result in *REPOS_RELPATH.
@@ -458,7 +434,7 @@ print_git_diff_header(svn_stream_t *os,
                       apr_hash_t *right_props,
                       const char *git_index_shas,
                       const char *header_encoding,
-                      const diff_driver_info_t *ddi,
+                      const svn_client__diff_driver_info_t *ddi,
                       apr_pool_t *scratch_pool)
 {
   const char *repos_relpath1;
@@ -613,7 +589,7 @@ display_prop_diffs(const apr_array_header_t *propchanges,
                    svn_boolean_t show_diff_header,
                    svn_boolean_t use_git_diff_format,
                    svn_boolean_t pretty_print_mergeinfo,
-                   const diff_driver_info_t *ddi,
+                   const svn_client__diff_driver_info_t *ddi,
                    svn_cancel_func_t cancel_func,
                    void *cancel_baton,
                    apr_pool_t *scratch_pool)
@@ -748,7 +724,7 @@ typedef struct diff_writer_info_t
   svn_cancel_func_t cancel_func;
   void *cancel_baton;
 
-  struct diff_driver_info_t ddi;
+  struct svn_client__diff_driver_info_t ddi;
 } diff_writer_info_t;
 
 /* An helper for diff_dir_props_changed, diff_file_changed and diff_file_added
@@ -1917,7 +1893,7 @@ diff_wc_wc(const char *path1,
 
    All other options are the same as those passed to svn_client_diff7(). */
 static svn_error_t *
-diff_repos_repos(struct diff_driver_info_t *ddi,
+diff_repos_repos(struct svn_client__diff_driver_info_t *ddi,
                  const char *path_or_url1,
                  const char *path_or_url2,
                  const svn_opt_revision_t *revision1,
@@ -2095,7 +2071,7 @@ diff_repos_repos(struct diff_driver_info_t *ddi,
 
    All other options are the same as those passed to svn_client_diff7(). */
 static svn_error_t *
-diff_repos_wc(struct diff_driver_info_t *ddi,
+diff_repos_wc(struct svn_client__diff_driver_info_t *ddi,
               const char *path_or_url1,
               const svn_opt_revision_t *revision1,
               const svn_opt_revision_t *peg_revision1,
@@ -2436,7 +2412,7 @@ diff_shelves(const apr_array_header_t *changelists,
 
 /* This is basically just the guts of svn_client_diff[_summarize][_peg]6(). */
 static svn_error_t *
-do_diff(diff_driver_info_t *ddi,
+do_diff(svn_client__diff_driver_info_t *ddi,
         const char *path_or_url1,
         const char *path_or_url2,
         const svn_opt_revision_t *revision1,
@@ -2638,7 +2614,7 @@ create_diff_writer_info(diff_writer_info_t *dwi,
  */
 static svn_error_t *
 get_diff_processor(svn_diff_tree_processor_t **diff_processor,
-                   struct diff_driver_info_t **ddi,
+                   struct svn_client__diff_driver_info_t **ddi,
                    const apr_array_header_t *options,
                    const char *relative_to_dir,
                    svn_boolean_t no_diff_added,
@@ -2720,7 +2696,7 @@ svn_client__get_diff_writer_svn(
                 svn_client_ctx_t *ctx,
                 apr_pool_t *pool)
 {
-  struct diff_driver_info_t *ddi;
+  struct svn_client__diff_driver_info_t *ddi;
 
   SVN_ERR(get_diff_processor(diff_processor, &ddi,
                              options,
@@ -2804,7 +2780,7 @@ svn_client_diff7(const apr_array_header_t *options,
 {
   svn_opt_revision_t peg_revision;
   svn_diff_tree_processor_t *diff_processor;
-  struct diff_driver_info_t *ddi;
+  struct svn_client__diff_driver_info_t *ddi;
 
   if (ignore_properties && properties_only)
     return svn_error_create(SVN_ERR_INCORRECT_PARAMS, NULL,
@@ -2867,7 +2843,7 @@ svn_client_diff_peg7(const apr_array_header_t *options,
                      apr_pool_t *pool)
 {
   svn_diff_tree_processor_t *diff_processor;
-  struct diff_driver_info_t *ddi;
+  struct svn_client__diff_driver_info_t *ddi;
 
   if (ignore_properties && properties_only)
     return svn_error_create(SVN_ERR_INCORRECT_PARAMS, NULL,
