@@ -725,7 +725,7 @@ typedef struct diff_writer_info_t
   svn_cancel_func_t cancel_func;
   void *cancel_baton;
 
-  struct svn_client__diff_driver_info_t ddi;
+  svn_client__diff_driver_info_t ddi;
 } diff_writer_info_t;
 
 /* An helper for diff_dir_props_changed, diff_file_changed and diff_file_added
@@ -1894,7 +1894,7 @@ diff_wc_wc(const char *path1,
 
    All other options are the same as those passed to svn_client_diff7(). */
 static svn_error_t *
-diff_repos_repos(struct svn_client__diff_driver_info_t *ddi,
+diff_repos_repos(svn_client__diff_driver_info_t *ddi,
                  const char *path_or_url1,
                  const char *path_or_url2,
                  const svn_opt_revision_t *revision1,
@@ -2072,7 +2072,7 @@ diff_repos_repos(struct svn_client__diff_driver_info_t *ddi,
 
    All other options are the same as those passed to svn_client_diff7(). */
 static svn_error_t *
-diff_repos_wc(struct svn_client__diff_driver_info_t *ddi,
+diff_repos_wc(svn_client__diff_driver_info_t *ddi,
               const char *path_or_url1,
               const svn_opt_revision_t *revision1,
               const svn_opt_revision_t *peg_revision1,
@@ -2615,7 +2615,7 @@ create_diff_writer_info(diff_writer_info_t *dwi,
  */
 static svn_error_t *
 get_diff_processor(svn_diff_tree_processor_t **diff_processor,
-                   struct svn_client__diff_driver_info_t **ddi,
+                   svn_client__diff_driver_info_t **ddi,
                    const apr_array_header_t *options,
                    const char *relative_to_dir,
                    svn_boolean_t no_diff_added,
@@ -2698,7 +2698,7 @@ svn_client__get_diff_writer_svn(
                 svn_client_ctx_t *ctx,
                 apr_pool_t *pool)
 {
-  struct svn_client__diff_driver_info_t *ddi;
+  svn_client__diff_driver_info_t *ddi;
 
   SVN_ERR(get_diff_processor(diff_processor, &ddi,
                              options,
@@ -2782,7 +2782,7 @@ svn_client_diff7(const apr_array_header_t *options,
 {
   svn_opt_revision_t peg_revision;
   svn_diff_tree_processor_t *diff_processor;
-  struct svn_client__diff_driver_info_t *ddi;
+  svn_client__diff_driver_info_t *ddi;
 
   if (ignore_properties && properties_only)
     return svn_error_create(SVN_ERR_INCORRECT_PARAMS, NULL,
@@ -2845,7 +2845,7 @@ svn_client_diff_peg7(const apr_array_header_t *options,
                      apr_pool_t *pool)
 {
   svn_diff_tree_processor_t *diff_processor;
-  struct svn_client__diff_driver_info_t *ddi;
+  svn_client__diff_driver_info_t *ddi;
 
   if (ignore_properties && properties_only)
     return svn_error_create(SVN_ERR_INCORRECT_PARAMS, NULL,
