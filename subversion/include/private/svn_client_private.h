@@ -345,8 +345,8 @@ svn_client__mergeinfo_log(svn_boolean_t finding_merged,
                           apr_pool_t *result_pool,
                           apr_pool_t *scratch_pool);
 
-/** Return a diff processor that will print a Subversion-style
- * (not git-style) diff.
+/** Return a diff processor that will print a diff in Subversion-style
+ *  or git-style, based on @a use_git_diff_format value.
  *
  * @a anchor is optional (may be null), and is the 'anchor' path to prefix
  * to the diff-processor paths before displaying.
