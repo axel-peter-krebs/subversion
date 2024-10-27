@@ -769,6 +769,7 @@ shelf_diff(const char *name,
                 FALSE /*ignore_properties*/,
                 FALSE /*properties_only*/,
                 TRUE /*pretty_print_mergeinfo*/,
+                FALSE /*use_git_diff_format*/,
                 svn_cmdline_output_encoding(scratch_pool),
                 stream, errstream,
                 ctx, scratch_pool));
