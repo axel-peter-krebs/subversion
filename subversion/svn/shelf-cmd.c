@@ -759,6 +759,8 @@ shelf_diff(const char *name,
     {
       SVN_ERR(svn_client__get_diff_writer_svn(
                 &diff_processor, &ddi,
+                NULL /*anchor*/,
+                "", "", /*orig_path_1, orig_path_2,*/
                 NULL /*options*/,
                 "" /*relative_to_dir*/,
                 FALSE /*no_diff_added*/,
@@ -772,9 +774,6 @@ shelf_diff(const char *name,
                 svn_cmdline_output_encoding(scratch_pool),
                 stream, errstream,
                 ctx, scratch_pool));
-
-      ddi->orig_path_1 = "";
-      ddi->orig_path_2 = "";
     }
 
   SVN_ERR(svn_client__shelf_diff(shelf_version, "",

@@ -1273,6 +1273,9 @@ svn_client_diff7(const apr_array_header_t *options,
     ignore_ancestry = FALSE;
 
   SVN_ERR(svn_client__get_diff_writer_svn(&diff_processor, &ddi,
+                                          NULL /*anchor*/,
+                                          NULL /*orig_path_1*/,
+                                          NULL /*orig_path_2*/,
                                           options,
                                           relative_to_dir,
                                           no_diff_added,
@@ -1333,6 +1336,9 @@ svn_client_diff_peg7(const apr_array_header_t *options,
     ignore_ancestry = FALSE;
 
   SVN_ERR(svn_client__get_diff_writer_svn(&diff_processor, &ddi,
+                                          NULL /*anchor*/,
+                                          NULL /*orig_path_1*/,
+                                          NULL /*orig_path_2*/,
                                           options,
                                           relative_to_dir,
                                           no_diff_added,
