@@ -101,6 +101,7 @@ DISTDIR		= $(PWD)/distfiles
 SRCDIR		= $(PWD)/src
 OBJDIR		= $(PWD)/objdir
 
+# Default dependency versions
 BDB_MAJOR_VER	= 4.7
 BDB_VER		= $(BDB_MAJOR_VER).25
 APR_VER		= 1.7.5
@@ -345,6 +346,12 @@ nuke:
 		esac
 
 fetch: $(DISTFILES)
+
+#######################################################################
+# Local version override file
+#######################################################################
+Makefile.local:
+	cp unix-build/Makefile.local .
 
 #######################################################################
 # directories
