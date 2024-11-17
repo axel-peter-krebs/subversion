@@ -57,6 +57,12 @@ Candidate changes:
      Ditto.
    votes:
      +1: jun66j5, astieger
+     -0: dsahlberg (only because of the veto for 1921505, if it wouldn't make
+           sense to merge this revision separately, no objections on technical
+           grounds).
+
+Veto-blocked changes:
+=====================
 
  * r1921505
    Make swig-py compatible with SWIG 4.3.0.
@@ -64,9 +70,8 @@ Candidate changes:
      Ditto.
    votes:
      +1: jun66j5, astieger
-
-Veto-blocked changes:
-=====================
+     -1: dsahlberg (veto only because it doesn't apply cleanly to 1.14.x, veto
+           can be removed by anyone if this is reworked to merge).
 
 Approved changes:
 =================
