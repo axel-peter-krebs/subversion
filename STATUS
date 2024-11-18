@@ -19,21 +19,21 @@ Candidate changes:
    Support building on Win64/ARM64.
    Justification:
      At user request (via SharpSvn)
-   votes:
+   Votes:
      +1: rhuijben
 
  * r1921264
    swig-rb: Fix warnings on printf-format for the size_t argument.
    Justification:
      Avoid possibly crash due to the incorrect format.
-   votes:
+   Votes:
      +1: jun66j5
 
  * r1921266
    Fix detection for zlib version in gen-make.py on Windows.
    Justification:
      Allow `1.3` and `1.3.1.1` for zlib version.
-   votes:
+   Votes:
      +1: jun66j5
 
  * r1921267
@@ -41,14 +41,14 @@ Candidate changes:
    ruby on Windows.
    Justification:
      Avoid noisy messages.
-   votes:
+   Votes:
      +1: jun66j5
 
  * r1921371
    Add regression tests for CVE-2024-45720.
    Justification:
      Ditto.
-   votes:
+   Votes:
      +1: jun66j5
 
 Veto-blocked changes:
