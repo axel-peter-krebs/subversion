@@ -49,10 +49,3 @@ Veto-blocked changes:
 
 Approved changes:
 =================
-
- * r1921371
-   Add regression tests for CVE-2024-45720.
-   Justification:
-     Ditto.
-   Votes:
-     +1: jun66j5, jcorvel
