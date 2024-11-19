@@ -50,13 +50,6 @@ Veto-blocked changes:
 Approved changes:
 =================
 
- * r1921506
-   Make swig-rb compatible with SWIG 4.3.0.
-   Justification:
-     Ditto.
-   Votes:
-     +1: jun66j5, astieger
-
  * r1921505
    Make swig-py compatible with SWIG 4.3.0.
    Justification:
@@ -71,4 +64,3 @@ Approved changes:
      Ditto.
    Votes:
      +1: jun66j5, jcorvel
-
