@@ -231,7 +231,7 @@ def verify_backport(sbox, expected_dump_file, uuid):
       "delrevprop", "-r", revnum, sbox.repo_dir, "svn:date")
 
   # Create a dump file from the mirror repository.
-  dest_dump = open(expected_dump_file).readlines()
+  dest_dump = open(expected_dump_file, 'rb').readlines()
   svntest.actions.run_and_verify_svnadmin(None, [],
                                           'setuuid', '--', sbox.repo_dir, uuid)
   src_dump = svntest.actions.run_and_verify_dump(sbox.repo_dir)
