@@ -101,7 +101,7 @@ class BackportTest(object):
     # .wraps() propagates the wrappee's docstring to the wrapper.
     @functools.wraps(test_func)
     def wrapped_test_func(sbox):
-      expected_dump_file = './backport_tests_data/%s.dump' % (test_func.func_name,)
+      expected_dump_file = './backport_tests_data/%s.dump' % (test_func.__name__,)
 
       sbox.build()
 
@@ -231,7 +231,7 @@ def verify_backport(sbox, expected_dump_file, uuid):
       "delrevprop", "-r", revnum, sbox.repo_dir, "svn:date")
 
   # Create a dump file from the mirror repository.
-  dest_dump = open(expected_dump_file).readlines()
+  dest_dump = open(expected_dump_file, 'rb').readlines()
   svntest.actions.run_and_verify_svnadmin(None, [],
                                           'setuuid', '--', sbox.repo_dir, uuid)
   src_dump = svntest.actions.run_and_verify_dump(sbox.repo_dir)
